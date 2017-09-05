@@ -9,7 +9,7 @@ typedef struct pp
 }P;
 
 P QUEUE[LEN];
-int head=0,tail=0,n=0; //Í·Ö¸Õë¡¢Î²Ö¸Õë¡¢ÊıÄ¿
+int head=0,tail=0,n=0; //å¤´æŒ‡é’ˆã€å°¾æŒ‡é’ˆã€æ•°ç›®
 
 void enqueue(P New_Member)
 {
@@ -48,9 +48,9 @@ int main() {
         P x=dequeue();
         if(x.time>Handle_Time)
         {
-            x.time-=Handle_Time; //¼õÈ¥´¦ÀíÊ±¼ä
+            x.time-=Handle_Time; //å‡å»å¤„ç†æ—¶é—´
             Whole_Time+=Handle_Time;
-            enqueue(x); //ÖØĞÂÈë¶Ó
+            enqueue(x); //é‡æ–°å…¥é˜Ÿ
         }
         else
         {
