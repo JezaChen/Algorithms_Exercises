@@ -18,18 +18,18 @@ public:
     {
         return right_child=new BinNode(u,this);
     }
-    BinNode* succ() //ÖĞĞò±éÀúµÄÖ±½Óºó¼Ì
+    BinNode* succ() //ä¸­åºéå†çš„ç›´æ¥åç»§
     {
-        if(right_child) //Èç¹ûÓĞÓÒº¢×Ó
+        if(right_child) //å¦‚æœæœ‰å³å­©å­
         {
             BinNode* u=right_child;
             while(u->left_child)
             {
-                u=u->left_child; //²»¶ÏÑØ×ó·ÖÖ§ÉîÈë
+                u=u->left_child; //ä¸æ–­æ²¿å·¦åˆ†æ”¯æ·±å…¥
             }
             return u;
         }
-        else //Èç¹ûÃ»ÓĞÓÒº¢×Ó£¬ÔòÕÒµ½°üº¬ËüÎª×ó×ÓÊ÷½áµãµÄ×îµÍ×æÏÈ
+        else //å¦‚æœæ²¡æœ‰å³å­©å­ï¼Œåˆ™æ‰¾åˆ°åŒ…å«å®ƒä¸ºå·¦å­æ ‘ç»“ç‚¹çš„æœ€ä½ç¥–å…ˆ
         {
             BinNode* u=this;
             BinNode* p=u->parent;
@@ -38,7 +38,7 @@ public:
                 u=p;
                 p=p->parent;
             }
-            return p; //·µ»Ø¸Ã×îµÍ×æÏÈ
+            return p; //è¿”å›è¯¥æœ€ä½ç¥–å…ˆ
         }
     }
 };
@@ -58,15 +58,15 @@ public:
     BinNode* insert(int u);
     bool del(int u);
     void visitLeftbranch(BinNode* u,stack<BinNode*>& S);
-    void print_preOrder(); //Ç°Ğò±éÀúÊä³ö
-    void print_inOrder(); //ÖĞĞò±éÀúÊä³ö
+    void print_preOrder(); //å‰åºéå†è¾“å‡º
+    void print_inOrder(); //ä¸­åºéå†è¾“å‡º
 };
 BinNode*& BST::searchIn(BinNode* p,int u,BinNode*& hot)
 {
-    if(p==NULL) return hot; //µİ¹é»ù
-    hot=p; //±ê¼Ç_hot½Úµã
+    if(p==NULL) return hot; //é€’å½’åŸº
+    hot=p; //æ ‡è®°_hotèŠ‚ç‚¹
     if(p->data==u) return p;
-    return searchIn((u<p->data?p->left_child:p->right_child),u,hot); //µİ¹éÊµÏÖ
+    return searchIn((u<p->data?p->left_child:p->right_child),u,hot); //é€’å½’å®ç°
 }
 
 BinNode*& BST::search(int u)
@@ -75,23 +75,23 @@ BinNode*& BST::search(int u)
     BinNode* t=searchIn(_root,u,hot);
     return t;
    // if(t) return t;
-   // return hot; //Èç¹û²»´æÔÚ¸ÃÖµ£¬Ôò·µ»Ø×îºóÒ»¸ö¾­¹ıµÄ½áµã
+   // return hot; //å¦‚æœä¸å­˜åœ¨è¯¥å€¼ï¼Œåˆ™è¿”å›æœ€åä¸€ä¸ªç»è¿‡çš„ç»“ç‚¹
 }
 
 BinNode* BST::insert(int u)
 {
-    if(!_root) return _root=new BinNode(u); //¿ÕÊ÷¾Í²åÈë×÷Îª¸ù½áµã
+    if(!_root) return _root=new BinNode(u); //ç©ºæ ‘å°±æ’å…¥ä½œä¸ºæ ¹ç»“ç‚¹
     BinNode* t=search(u);
-    if(t->data==u) return t; //Òª±£Ö¤ÏàÓ¦µÄ½áµã²»´æÔÚ
-    return (u<t->data?t->insertAsLc(u):t->insertAsRc(u)); //ÊµÏÖ²åÈë
+    if(t->data==u) return t; //è¦ä¿è¯ç›¸åº”çš„ç»“ç‚¹ä¸å­˜åœ¨
+    return (u<t->data?t->insertAsLc(u):t->insertAsRc(u)); //å®ç°æ’å…¥
 }
-bool BST::remove(BinNode *&u) //u±ØĞë±£Ö¤ÊÇÒ¶×Ó
+bool BST::remove(BinNode *&u) //uå¿…é¡»ä¿è¯æ˜¯å¶å­
 {
     if(u)
-    {  //ÇĞ¶ÏÓë¸¸Ç×µÄÁªÏµ
+    {  //åˆ‡æ–­ä¸çˆ¶äº²çš„è”ç³»
        // u == u->parent->left_child ? (u->parent->left_child = NULL) : (u->parent->right_child = NULL);
        // u->parent = NULL;
-       //±¸×¢£ºÔÚ¶ş²æËÑË÷Ê÷µÄÉ¾³ı²Ù×÷ÖĞÒÑ¾­ÇĞ¶ÏÁËÓë¸¸Ç×µÄÁªÏµ
+       //å¤‡æ³¨ï¼šåœ¨äºŒå‰æœç´¢æ ‘çš„åˆ é™¤æ“ä½œä¸­å·²ç»åˆ‡æ–­äº†ä¸çˆ¶äº²çš„è”ç³»
         delete u;
         u=NULL;
         return true;
@@ -102,31 +102,31 @@ bool BST::del(int x)
 {
     BinNode*& u=search(x);
     BinNode* w=u;
-    BinNode* succ=NULL; //Êµ¼ÊÉ¾³ıÎ»ÖÃµÄ½ÓÌæÕß
-    if(u->data!=x) return false; //Òª±£Ö¤½áµã´æÔÚ
+    BinNode* succ=NULL; //å®é™…åˆ é™¤ä½ç½®çš„æ¥æ›¿è€…
+    if(u->data!=x) return false; //è¦ä¿è¯ç»“ç‚¹å­˜åœ¨
 
-    //²»´æÔÚË«×ÓÊ÷µÄÇé¿öÏÂ
-    if(!u->left_child) //×ó×ÓÊ÷²»´æÔÚµÄÇé¿öÏÂ
+    //ä¸å­˜åœ¨åŒå­æ ‘çš„æƒ…å†µä¸‹
+    if(!u->left_child) //å·¦å­æ ‘ä¸å­˜åœ¨çš„æƒ…å†µä¸‹
     {
         succ=u->right_child;
         (u->parent->left_child==u)?(u->parent->left_child=succ):(u->parent->right_child=succ);
     }
-    else if(!u->right_child) //ÓÒ×ÓÊ÷²»´æÔÚµÄÇé¿öÏÂ
+    else if(!u->right_child) //å³å­æ ‘ä¸å­˜åœ¨çš„æƒ…å†µä¸‹
     {
         succ=u->left_child;
         (u->parent->left_child==u)?(u->parent->left_child=succ):(u->parent->right_child=succ);
     }
-    else //Ë«×ÓÊ÷µÄÇé¿ö
+    else //åŒå­æ ‘çš„æƒ…å†µ
     {
-        w=w->succ(); //ÕÒµ½Ö±½Óºó¼Ì
-        swap(w->data,u->data); //½»»»Á½ÕßµÄÊı¾İ
-        BinNode* p=w->parent; //Êµ¼ÊÉ¾³ı½áµãµÄ¸¸Ç×
+        w=w->succ(); //æ‰¾åˆ°ç›´æ¥åç»§
+        swap(w->data,u->data); //äº¤æ¢ä¸¤è€…çš„æ•°æ®
+        BinNode* p=w->parent; //å®é™…åˆ é™¤ç»“ç‚¹çš„çˆ¶äº²
         ((u==p)?(p->right_child):(p->left_child))=succ=w->right_child;
     }
-    //½â¾ö½ÓÌæÕßµÄºó¹ËÖ®ÓÇ
-    _hot=w->parent; //¼ÇÂ¼Êµ¼Ê±»É¾³ı½áµãµÄ¸¸Ç×
-    if(succ) //Èç¹û½ÓÌæÕß²»ÊÇ¿Õ½Úµã
-        succ->parent=_hot; //ÄÇ¾ÍÈÏµù°É
+    //è§£å†³æ¥æ›¿è€…çš„åé¡¾ä¹‹å¿§
+    _hot=w->parent; //è®°å½•å®é™…è¢«åˆ é™¤ç»“ç‚¹çš„çˆ¶äº²
+    if(succ) //å¦‚æœæ¥æ›¿è€…ä¸æ˜¯ç©ºèŠ‚ç‚¹
+        succ->parent=_hot; //é‚£å°±è®¤çˆ¹å§
     remove(w);
     return true;
 }
@@ -134,8 +134,8 @@ void BST::visitLeftbranch(BinNode *u, stack<BinNode*> &S)
 {
     while(u)
     {
-        printNode(u); //ÏÈ·ÃÎÊ
-        S.push(u->right_child); //ÓÒº¢×ÓÈëÕ»
+        printNode(u); //å…ˆè®¿é—®
+        S.push(u->right_child); //å³å­©å­å…¥æ ˆ
         u=u->left_child;
     }
 }
@@ -163,9 +163,9 @@ void BST::print_inOrder()
         }
         else if(!S.empty())
         {
-            u=S.top();S.pop(); //µ¯³öÕ»¶¥
+            u=S.top();S.pop(); //å¼¹å‡ºæ ˆé¡¶
             printNode(u);
-            u=u->right_child; //×ªÈëÓÒº¢×Ó
+            u=u->right_child; //è½¬å…¥å³å­©å­
         }
         else break;
     }
