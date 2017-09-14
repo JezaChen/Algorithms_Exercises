@@ -19,6 +19,7 @@ void bfs(int i,int c)
             if(color[follow[p][j]]!=-1) continue;
             //else
             Q.push(follow[p][j]); color[follow[p][j]]=color[p];
+        }
     }
 }
 
