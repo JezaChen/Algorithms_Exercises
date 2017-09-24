@@ -78,18 +78,21 @@ struct Matrix
             return C;
         }
         //ÇÐ¸î¾ØÕó
-        Matrix A11(A, A.lx, A.ly, A.rx/2, A.ry/2);
-        Matrix A12(A, A.rx/2+1, A.ly, A.rx, A.ry/2);
-        Matrix A21(A, A.lx, A.ry/2+1, A.rx/2, A.ry);
-        Matrix A22(A, A.rx/2+1, A.ry/2+1, A.rx, A.ry);
-        Matrix B11(B, B.lx, B.ly, B.rx/2, B.ry/2);
-        Matrix B12(B, B.rx/2+1, B.ly, B.rx, B.ry/2);
-        Matrix B21(B, B.lx, B.ry/2+1, B.rx/2, B.ry);
-        Matrix B22(B, B.rx/2+1, B.ry/2+1, B.rx, B.ry);
-        Matrix C11(C, C.lx, C.ly, C.rx/2, C.ry/2);
-        Matrix C12(C, C.rx/2+1, C.ly, C.rx, C.ry/2);
-        Matrix C21(C, C.lx, C.ry/2+1, C.rx/2, C.ry);
-        Matrix C22(C, C.rx/2+1, C.ry/2+1, C.rx, C.ry);
+        Matrix A11(A, A.lx, A.ly, A.lx+(A.n/2)-1, A.ly+(A.n/2)-1);
+        Matrix A12(A, A.lx+A.n/2, A.ly, A.lx+A.n-1, A.ly+(A.n/2)-1);
+        Matrix A21(A, A.lx, A.ly+(A.n/2), A.lx+(A.n/2)-1,A.ly+A.n-1);
+        Matrix A22(A, A.lx+A.n/2, A.ly+A.n/2, A.lx+A.n-1, A.ly+A.n-1);
+
+        Matrix B11(B, B.lx, B.ly, B.lx+(B.n/2)-1, B.ly+(B.n/2)-1);
+        Matrix B12(B, B.lx+B.n/2, B.ly, B.lx+B.n-1, B.ly+(B.n/2)-1);
+        Matrix B21(B, B.lx, B.ly+(B.n/2), B.lx+(B.n/2)-1,B.ly+B.n-1);
+        Matrix B22(B, B.lx+B.n/2, B.ly+B.n/2, B.lx+B.n-1, B.ly+B.n-1);
+
+        Matrix C11(C, C.lx, C.ly, C.lx+(C.n/2)-1, C.ly+(C.n/2)-1);
+        Matrix C12(C, C.lx+C.n/2, C.ly, C.lx+C.n-1, C.ly+(C.n/2)-1);
+        Matrix C21(C, C.lx, C.ly+(C.n/2), C.lx+(C.n/2)-1,C.ly+C.n-1);
+        Matrix C22(C, C.lx+C.n/2, C.ly+C.n/2, C.lx+C.n-1, C.ly+C.n-1);
+
        // Matrix S1(A.n/2), S2(A.n/2), S3(A.n/2), S4(A.n/2), S5(A.n/2), S6(A.n/2), S7(A.n/2), S8(A.n/2), S9(A.n/2), S10(A.n/2);
         Matrix S1 = B12-B22;
         Matrix S2 = A11+A12;
