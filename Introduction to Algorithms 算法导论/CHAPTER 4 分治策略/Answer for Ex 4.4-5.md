@@ -1,0 +1,1 @@
+> Use a reccursion tree to determine a good asymptotic upper bound on the recurrence<img src="http://www.forkosh.com/mathtex.cgi? \Large x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}">. Use the substitution method to verify your answer.
