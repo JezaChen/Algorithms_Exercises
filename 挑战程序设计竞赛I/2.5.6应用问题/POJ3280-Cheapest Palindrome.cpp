@@ -1,35 +1,49 @@
-#include<cstdio>  
-#include<algorithm>  
-#include<cstring>  
-#include<cmath>  
-#include<string>  
-using namespace std;  
-int n,m,dp[2009][2009],in[27],de[27];  
-char ch[2009];  
-int main()  
-{  
-    scanf("%d%d",&n,&m);  
-    scanf("%s",ch);  
-    for (int i=1;i<=n;i++)   
-    {  
-        char c;  
-        if (scanf("%c",&c)&&c=='\n') scanf("%c",&c);  
-        int k1,k2;  
-        scanf("%d%d",&k1,&k2);  
-        in[c-'a']=k1;de[c-'a']=k2;  
-    }  
-    for (int i=m-1;i>=0;i--)  
-    {  
-        dp[i][i]=0;  
-        for (int j=i+1;j<m;j++)  
-        {  
-            dp[i][j]=0x3f3f3f3f;//因为找最小的，别忘了开始时置为无穷大  
-            if (ch[i]==ch[j]) dp[i][j]=dp[i+1][j-1];  
-            dp[i][j]=min(dp[i][j],min(dp[i+1][j]+in[ch[i]-'a'],dp[i+1][j]+de[ch[i]-'a']));  
-            dp[i][j]=min(dp[i][j],min(dp[i][j-1]+in[ch[j]-'a'],dp[i][j-1]+de[ch[j]-'a']));//三种情况  
-            //printf("%d %d %d\n",i,j,dp[i][j]);  
-        }  
-    }  
-    printf("%d",dp[0][m-1]);  
-    return 0;  
-}  
+#include <iostream>
+#include <string>
+#include <cstring>
+
+using namespace std;
+static const int M_MAX = 2001;
+static const int N_MAX = 27;
+static const int INF = 1<<21;
+int cost[N_MAX];
+int dp[M_MAX][M_MAX];
+char letter[M_MAX];
+int N,M;
+int solve()
+{
+    int n = M;
+    //init
+    for(int i=0;i<n;i++)  dp[i][i] = 0;
+    for(int length=2;length<=n;length++)
+    {
+        for(int i=0,j=i+length-1;j<n;i++,j++)
+        {
+            dp[i][j] = INF;
+            if(letter[i] == letter[j])
+            {
+                dp[i][j] = dp[i+1][j-1];
+            }
+            else
+            {
+                dp[i][j] = min(dp[i+1][j]+cost[letter[i]-'a'],dp[i][j-1]+cost[letter[j]-'a']);
+            }
+        }
+    }
+    return dp[0][n-1];
+}
+
+int main()
+{
+    cin>>N>>M;
+    //memset(dp,M_MAX*M_MAX,0);
+    cin>>letter;
+    char c; int a,b;
+    for(int i=0;i<N;i++)
+    {
+        cin>>c;
+        cin>>a>>b;
+        cost[c-'a'] = min(a,b);
+    }
+    cout<<solve()<<endl;
+}
